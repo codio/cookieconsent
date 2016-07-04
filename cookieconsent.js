@@ -94,7 +94,9 @@ var cc =
         overridewarnings: false,
         onlyshowwithineu: false,
         ipinfodbkey: false,
-        ignoreDoNotTrack: false
+        ignoreDoNotTrack: false,
+        showPolicyLink: true,
+        stylesPath: ''
     },
 
     strings: {
@@ -316,6 +318,7 @@ var cc =
         if (cc.settings.useSSL) {
             cc.settings.serveraddr = 'https://cookieconsent.silktide.com/';
         }
+        cc.loadStyles();
         if (window.jQuery) {
             cc.setupcomplete = true;
             cc.setup();
@@ -540,7 +543,9 @@ var cc =
                 }
             }
         });
-        jQuery('#cc-notification-wrapper h2').append(' - <a class="cc-link" href="#" id="cc-notification-moreinfo">' + cc.strings.seeDetails + '</a>');
+        if (cc.settings.showPolicyLink) {
+            jQuery('#cc-notification-wrapper h2').append(' - <a class="cc-link" href="#" id="cc-notification-moreinfo">' + cc.strings.seeDetails + '</a>');
+        }
         if (cc.settings.consenttype == "implicit") {
             jQuery('#cc-notification-moreinfo').html(cc.strings.seeDetailsImplicit);
         }
@@ -1263,6 +1268,19 @@ var cc =
         jQuery.each(cc.cookies, function (key, value) {
             jQuery('.cc-button-enable-' + key).addClass('cc-link').click(cc.onlocalconsentgiven);
         });
+    },
+
+    loadStyles: function () {
+        var path = cc.settings.stylesPath;
+        if (!(typeof path === 'string' && path.length > 0)) {
+            return
+        }
+        var link = document.createElement('link');
+        link.type = 'text/css'
+        link.rel = 'stylesheet'
+        link.href = path;
+
+        document.getElementsByTagName("head")[0].appendChild(link);
     }
 }
 

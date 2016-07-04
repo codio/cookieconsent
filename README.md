@@ -47,3 +47,31 @@ Basic usage
 Credits
 -------
 Created by [Silktide](http://silktide.com).
+
+
+Build
+-----
+
+npm i 
+node minify.js
+
+Built version will be if dist folder.
+
+Config
+------
+
+// defaults
+cc.initialise({
+  cookies: {
+    analytics: {}
+  },
+  settings: {
+    stylePath: 'cookieconsent.css',
+    hideprivacysettingstab: true,
+    onlyshowwithineu: true,
+    ipinfodbkey: '',
+    consenttype: 'implicit',
+    bannerPosition: 'bottom',
+    showPolicyLink: false
+  }
+})
